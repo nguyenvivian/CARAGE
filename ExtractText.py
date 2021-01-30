@@ -1,5 +1,6 @@
 import io
 import os
+import json
 from google.cloud import vision
 from firebase import firebase
 from datetime import datetime
@@ -34,8 +35,6 @@ def detect_text(path):
 
     post_text(extractedPhrases)
 
-    return extractedPhrases
-
 
 # Sends a POST request to the Firebase Realtime DB.
 def post_text(extractedPhrases):
@@ -43,6 +42,6 @@ def post_text(extractedPhrases):
             'TimeTaken': datetime.now(),
             'ExtractedPhrasesRaw': extractedPhrases
             }
-    result = firebase.post('/ParkingLocation/Lot6A/', data)
+    result = firebase.post('/ExtractedText/Lot6A/', data)
 
-# detect_text('test-4.jpg')
+# detect_text('test-5.jpg')
