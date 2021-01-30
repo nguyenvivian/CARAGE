@@ -1,4 +1,6 @@
 import re
+
+
 from firebase import firebase
 
 from EnvironmentConstants import FIREBASE_URL
@@ -18,7 +20,9 @@ def calculate_density(parkingLot):
     spotFreq = dict(lotData[next(iter(lotData))].items())
 
     for openSpot in extractedText[next(reversed(extractedText))]['ExtractedPhrasesRaw'][1:]:
+        #Post-noise Processing
         openSpot = re.sub(r'\d+', '', str(openSpot))
+
         if openSpot in str(lotData[next(iter(lotData))].keys()):
             spotFilled[openSpot] += 1
     spotFilled['Total'] = sum(spotFilled.values())

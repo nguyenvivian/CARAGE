@@ -1,5 +1,7 @@
 import io
 import os
+import string
+
 from google.cloud import vision
 from firebase import firebase
 from datetime import datetime
@@ -24,13 +26,10 @@ def detect_text(path):
     texts = response.text_annotations
     extractedPhrases = []
 
-    print('Text:')
     for text in texts:
-        print('\n"{}"'.format(text.description))
-        extractedPhrases.append(text.description)
-
-    print(extractedPhrases)
-
+        #Image Noise Processing
+        extractedPhrases.append(text.description.translate(str.maketrans('', '', string.punctuation))
+)
     if response.error.message:
         raise Exception('{}\n'.format(response.error.message))
 
@@ -45,4 +44,4 @@ def post_text(extractedPhrases):
             }
     result = firebase.post('/ExtractedText/Lot6A/', data)
 
-# detect_text('test-5.jpg')
+# detect_text('test-6-emptylot.jpg')
