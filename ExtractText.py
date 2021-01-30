@@ -1,7 +1,9 @@
-import os, io
+import io
+import os
 from google.cloud import vision
 
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'carage-service-account-token-f525563457d6.json'
+
 
 def detect_text(path):
     client = vision.ImageAnnotatorClient()
