@@ -5,8 +5,10 @@ from google.cloud import vision
 from firebase import firebase
 from datetime import datetime
 
+from Main import FIREBASE_URL
+
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'carage-service-account-token-f525563457d6.json'
-firebase = firebase.FirebaseApplication('https://formal-era-303305-default-rtdb.firebaseio.com/', None)
+firebase = firebase.FirebaseApplication(FIREBASE_URL, None)
 
 
 # Takes the path to an image and sends a request to the Vision API.

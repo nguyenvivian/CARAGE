@@ -1,7 +1,9 @@
 import re
 from firebase import firebase
 
-firebase = firebase.FirebaseApplication('https://formal-era-303305-default-rtdb.firebaseio.com/', None)
+from Main import FIREBASE_URL
+
+firebase = firebase.FirebaseApplication(FIREBASE_URL, None)
 
 def calculate_density(parkingLot):
     lotData = firebase.get('/ParkingLocationCount/'+parkingLot+'/', '')

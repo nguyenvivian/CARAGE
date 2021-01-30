@@ -1,6 +1,8 @@
 from firebase import firebase
 
-firebase = firebase.FirebaseApplication('https://formal-era-303305-default-rtdb.firebaseio.com/', None)
+from Main import FIREBASE_URL
+
+firebase = firebase.FirebaseApplication(FIREBASE_URL, None)
 
 # Sends a POST request to the Firebase Realtime DB. Currently filled with arbitrary numbers for test purposes.
 # Eventually these numbers will be managed by an enterprise application and populated with every lot on campus.
