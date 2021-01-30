@@ -1,7 +1,7 @@
 import re
 from firebase import firebase
 
-from Main import FIREBASE_URL
+from EnvironmentConstants import FIREBASE_URL
 
 firebase = firebase.FirebaseApplication(FIREBASE_URL, None)
 
@@ -32,6 +32,3 @@ def calculate_density(parkingLot):
 # Sends a POST request to the Firebase Realtime DB.
 def post_density_data(densityData):
     result = firebase.post('/DensityData/Lot6A/', densityData)
-
-
-calculate_density('Lot6A')

@@ -1,6 +1,6 @@
 from firebase import firebase
 
-from Main import FIREBASE_URL
+from EnvironmentConstants import FIREBASE_URL
 
 firebase = firebase.FirebaseApplication(FIREBASE_URL, None)
 

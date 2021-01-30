@@ -1,13 +1,12 @@
 import io
 import os
-import json
 from google.cloud import vision
 from firebase import firebase
 from datetime import datetime
 
-from Main import FIREBASE_URL
+from EnvironmentConstants import FIREBASE_URL, GOOGLE_APPLICATION_CREDENTIALS
 
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = r'carage-service-account-token-f525563457d6.json'
+os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = GOOGLE_APPLICATION_CREDENTIALS
 firebase = firebase.FirebaseApplication(FIREBASE_URL, None)
 
 
