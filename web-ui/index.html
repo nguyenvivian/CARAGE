@@ -19,54 +19,110 @@
     <script src="https://cdn.jsdelivr.net/npm/vega-embed@5.1.3"></script>
 
     <!-- BootStrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
-        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous">
-        </script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
-        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous">
-        </script>
+
+    <!-- Style Sheet -->
+    <link rel="stylesheet" href="css/index.css">
+
 </head>
 
 <body>
-    <!-- ======= Hero Section ======= -->
-    <section id="hero" class="hero d-flex align-items-center">
+    <nav class="navbar navbar-inverse">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="#">CARAGE</a>
+            </div>
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#about">About</a></li>
+                <li><a href="#analytics">Analytics</a></li>
+            </ul>
+        </div>
+    </nav>
 
+    <section id="about">
         <div class="container">
             <div class="row">
-                <div class="col-lg-6 d-flex flex-column justify-content-center">
-                    <h1 data-aos="fade-up">We offer modern solutions for growing your business</h1>
-                    <h2 data-aos="fade-up" data-aos-delay="400">We are team of talented designers making websites with
-                        Bootstrap</h2>
-                    <div data-aos="fade-up" data-aos-delay="600">
-                        <div class="text-center text-lg-start">
-                            <a href="#about"
-                                class="btn-get-started scrollto d-inline-flex align-items-center justify-content-center align-self-center">
-                                <span>Get Started</span>
-                                <i class="bi bi-arrow-right"></i>
-                            </a>
-                        </div>
-                    </div>
+                <div class="col-lg-6 ">
+                    <h1 class="description">The complete parking solution.</h1>
+                    <p>Built using a visual computing AI, CARAGE offers the most precise statistics
+                        possible on all of
+                        your organization's parking spaces in real-time.</p>
                 </div>
-                <div class="col-lg-6 hero-img" data-aos="zoom-out" data-aos-delay="200">
-                    <img src="assets/img/hero-img.png" class="img-fluid" alt="">
+                <div class="col-lg-6">
+                    <img viewBox="0 0 32 32" height="500" src="../assets/city-driver.svg" alt="city driver">
                 </div>
             </div>
         </div>
+    </section>
 
-    </section><!-- End Hero -->
-    <pre id='data'></pre>
     <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-app.js"></script>
     <script src="https://www.gstatic.com/firebasejs/8.2.5/firebase-database.js"></script>
     <script src="display-data.js"></script>
-    <div id="densityTotalVis"></div>
-    <div id="densityGeneralVis"></div>
-    <div id="densityPreferredVis"></div>
-    <div id="densityReservedVis"></div>
-    <div id="densityExecutiveVis"></div>
-    <div id="densityHandicapVis"></div>
 
+    <!-- Single button -->
+    <div class="container-fluid">
+        <div class="row ">
+            <div class="col-xs-3 text-left">
+                <p id="button">Select Parking Space:</p>
+
+            </div>
+            <div class="text-left">
+                <div class="btn-group">
+                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown"
+                        aria-haspopup="true" aria-expanded="false">
+                        Lot6A <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Lot 14 (Seed)</a></li>
+                        <li><a href="#">Anteater Parking Structure (Seed)</a></li>
+                        <li><a href="#">Lot 1B (Seed)</a></li>
+                        <li><a href="#">ARC Lot (Seed)</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <section class="container-fluid" id="analytics">
+        <div class="row">
+            <div class="col-lg-6 ">
+                <h2>Total Spots Vacant</h2>
+                <p>Ratio of vacant spots plotted against time in Lot6A.</p>
+                <div id="densityTotalVis"></div>
+            </div>
+            <div class="col-lg-6 ">
+                <h2>General Spots Vacant</h2>
+                <p> Ratio of general spots plotted against time in Lot6A.</p>
+                <div class="graph" id="densityGeneralVis"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 ">
+                <h2>Preferred Spots Vacant</h2>
+                <p>Ratio of Preferred spots plotted against time in Lot6A.</p>
+                <div class="graph" id="densityPreferredVis"></div>
+            </div>
+            <div class="col-lg-6 ">
+                <h2>Reserved Spots Vacant</h2>
+                <p>Ratio of reserved spots plotted against time in Lot6A.</p>
+                <div class="graph" id="densityReservedVis"></div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-6 ">
+                <h2>Executive Spots Vacant</h2>
+                <p>Ratio of executive spots plotted against time in Lot6A.</p>
+                <div class="graph" id="densityExecutiveVis"></div>
+            </div>
+            <div class="col-lg-6 ">
+                <h2>Handicap Spots Vacant</h2>
+                <p>Ratio of handicap spots plotted against time in Lot6A.</p>
+                <div id="densityHandicapVis"></div>
+            </div>
+        </div>
+    </section>
 </body>
 
 </html>

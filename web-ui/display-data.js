@@ -57,7 +57,7 @@ function addDensityDataElement(TimeTaken, EXECUTIVE, GENERAL, HANDICAP, PREFERRE
                 "field": "TimeTaken",
                 "axis": { "labelAngle": 45 },
                 "type": "nominal",
-                "title": "Time",
+                "title": "Time Recorded",
             },
             "y": {
                 "field": "Total",
@@ -82,7 +82,7 @@ function addDensityDataElement(TimeTaken, EXECUTIVE, GENERAL, HANDICAP, PREFERRE
                 "field": "TimeTaken",
                 "axis": { "labelAngle": 45 },
                 "type": "nominal",
-                "title": "Time",
+                "title": "Time Recorded",
             },
             "y": {
                 "field": "GENERAL",
@@ -107,7 +107,7 @@ function addDensityDataElement(TimeTaken, EXECUTIVE, GENERAL, HANDICAP, PREFERRE
                 "field": "TimeTaken",
                 "axis": { "labelAngle": 45 },
                 "type": "nominal",
-                "title": "Time",
+                "title": "Time Recorded",
             },
             "y": {
                 "field": "PREFERRED",
@@ -132,7 +132,7 @@ function addDensityDataElement(TimeTaken, EXECUTIVE, GENERAL, HANDICAP, PREFERRE
                 "field": "TimeTaken",
                 "axis": { "labelAngle": 45 },
                 "type": "nominal",
-                "title": "Time",
+                "title": "Time Recorded",
             },
             "y": {
                 "field": "RESERVED",
@@ -157,7 +157,7 @@ function addDensityDataElement(TimeTaken, EXECUTIVE, GENERAL, HANDICAP, PREFERRE
                 "field": "TimeTaken",
                 "axis": { "labelAngle": 45 },
                 "type": "nominal",
-                "title": "Time",
+                "title": "Time Recorded",
             },
             "y": {
                 "field": "EXECUTIVE",
@@ -183,7 +183,7 @@ function addDensityDataElement(TimeTaken, EXECUTIVE, GENERAL, HANDICAP, PREFERRE
                 "field": "TimeTaken",
                 "axis": { "labelAngle": 45 },
                 "type": "nominal",
-                "title": "Time",
+                "title": "Time Recorded",
             },
             "y": {
                 "field": "HANDICAP",

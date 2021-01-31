@@ -1,0 +1,20 @@
+.description {
+  padding-top: 30%;
+  display: flex;
+}
+
+.graph-title{
+  justify-content: center;
+}
+p{
+  font-size: larger;
+}
+
+section{
+  padding-bottom: 10%;
+}
+
+#button{
+  font-size: large;
+  font-weight: bold;
+}
