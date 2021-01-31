@@ -13,73 +13,184 @@ firebase.initializeApp(firebaseConfig);
 
 //Reference to the db
 var ref = firebase.database().ref('DensityData/Lot6A').orderByChild('TimeTaken');
-let arr = [];
-ref.once('value', (snapshot) => {
-    snapshot.forEach((childSnapshot) => {
-        var childKey = childSnapshot.key;
-        var childData = childSnapshot.val();
-        arr.push(childData);
+ref.on('child_added', (childSnapshot) => {
+    var childData = childSnapshot.val();
+    addDensityDataElement(childData.TimeTaken, childData.EXECUTIVE,
+        childData.GENERAL, childData.HANDICAP, childData.PREFERRED,
+        childData.RESERVED, childData.Total);
+});
+
+let densityMap = new Map()
+
+function formatDate(dateTime) {
+    dateObj = new Date(dateTime);
+    let mmddyyyy = dateObj.toLocaleDateString('en-US');
+    let hhmm = dateObj.toLocaleTimeString('en-US', { hour12: false })
+    return mmddyyyy + ' ' + hhmm
+}
+
+function addDensityDataElement(TimeTaken, EXECUTIVE, GENERAL, HANDICAP, PREFERRED, RESERVED, Total) {
+    densityMap.set(formatDate(TimeTaken), {
+        EXECUTIVE: EXECUTIVE,
+        GENERAL: GENERAL,
+        HANDICAP: HANDICAP,
+        PREFERRED: PREFERRED,
+        RESERVED: RESERVED,
+        Total: Total,
     });
+    let flattenedDensity = Array.from(densityMap).map(
+        ([TimeTaken, { EXECUTIVE, GENERAL, HANDICAP, PREFERRED, RESERVED, Total }]) =>
+            ({ TimeTaken, EXECUTIVE, GENERAL, HANDICAP, PREFERRED, RESERVED, Total })
+    );
 
-});
-console.log(arr)
+    // Vis Spec: Total Vacancy
+    densityTotal = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0-beta.8.json",
+        "description": "Total Parking Lot Vacancy",
+        "width": 500,
+        "data": {
+            "values": flattenedDensity
+        },
+        "mark": "bar",
+        "encoding": {
+            "x": {
+                "field": "TimeTaken",
+                "axis": { "labelAngle": 45 },
+                "type": "nominal",
+                "title": "Time",
+            },
+            "y": {
+                "field": "Total",
+                "type": "quantitative",
+                "title": "Proportion of Total Lot Vacant",
+            },
+        },
+    };
+    vegaEmbed('#densityTotalVis', densityTotal, { actions: false });
 
-totalArr = new Map()
+    // Vis Spec: General Vacancy
+    densityGeneral = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0-beta.8.json",
+        "description": "General Parking Lot Vacancy",
+        "width": 500,
+        "data": {
+            "values": flattenedDensity
+        },
+        "mark": "bar",
+        "encoding": {
+            "x": {
+                "field": "TimeTaken",
+                "axis": { "labelAngle": 45 },
+                "type": "nominal",
+                "title": "Time",
+            },
+            "y": {
+                "field": "GENERAL",
+                "type": "quantitative",
+                "title": "Proportion of General Stalls Vacant",
+            },
+        },
+    };
+    vegaEmbed('#densityGeneralVis', densityGeneral, { actions: false });
 
-// arr.map(review => {
-//     totalArr.set(review.TimeTaken, {
-//         EXECUTIVE: review.EXECUTIVE,
-//         GENERAL: review.GENERAL,
-//         HANDICAP: review.HANDICAP,
-//         PREFERRED: review.PREFERRED,
-//         RESERVED: review.RESERVED,
-//         Total: review.TOTAL,
-//     });
-// });
-console.log(totalArr)
+    // Vis Spec: Preferred Vacancy
+    densityPreferred = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0-beta.8.json",
+        "description": "Preferred Parking Lot Vacancy",
+        "width": 500,
+        "data": {
+            "values": flattenedDensity
+        },
+        "mark": "bar",
+        "encoding": {
+            "x": {
+                "field": "TimeTaken",
+                "axis": { "labelAngle": 45 },
+                "type": "nominal",
+                "title": "Time",
+            },
+            "y": {
+                "field": "PREFERRED",
+                "type": "quantitative",
+                "title": "Proportion of Preferred Stalls Vacant",
+            },
+        },
+    };
+    vegaEmbed('#densityPreferredVis', densityPreferred, { actions: false });
 
-//     if (!isNaN(review.stars)) {
-//         if (countryBasedReviews.has(review.country)) {
-//             countryBasedReviews.set(review.country, {
-//                 frequency: ++countryBasedReviews.get(review.country).frequency,
-//                 totalStars: countryBasedReviews.get(review.country).totalStars + review.stars,
-//                 avgStarsFromThisCountry: countryBasedReviews.get(review.country).totalStars / countryBasedReviews.get(review.country).frequency,
-//             });
-//         } else {
-//             countryBasedReviews.set(review.country, {
-//                 frequency: 1,
-//                 totalStars: review.stars,
-//                 avgStarsFromThisCountry: review.stars / 1,
-//             });
-//         }
-// });
+    // Vis Spec: Reserved Vacancy
+    densityReserved = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0-beta.8.json",
+        "description": "Reserved Parking Lot Vacancy",
+        "width": 500,
+        "data": {
+            "values": flattenedDensity
+        },
+        "mark": "bar",
+        "encoding": {
+            "x": {
+                "field": "TimeTaken",
+                "axis": { "labelAngle": 45 },
+                "type": "nominal",
+                "title": "Time",
+            },
+            "y": {
+                "field": "RESERVED",
+                "type": "quantitative",
+                "title": "Proportion of Reserved Stalls Vacant",
+            },
+        },
+    };
+    vegaEmbed('#densityReservedVis', densityReserved, { actions: false });
 
-ref.on('child_added', function (snapshot) {
-    console.log("newEntryAdded");
-});
+    // Vis Spec: Executive Vacancy
+    densityExecutive = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0-beta.8.json",
+        "description": "Executive Parking Lot Vacancy",
+        "width": 500,
+        "data": {
+            "values": flattenedDensity
+        },
+        "mark": "bar",
+        "encoding": {
+            "x": {
+                "field": "TimeTaken",
+                "axis": { "labelAngle": 45 },
+                "type": "nominal",
+                "title": "Time",
+            },
+            "y": {
+                "field": "EXECUTIVE",
+                "type": "quantitative",
+                "title": "Proportion of Executive Stalls Vacant",
+            },
+        },
+    };
+    vegaEmbed('#densityExecutiveVis', densityExecutive, { actions: false });
 
-// Vis Spec: Styles that have the highest average rating
-// styleAvgStarsVisSpec = {
-//     "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0-beta.8.json",
-//     "description": "",
-//     "width": 500,
-//     "data": {
-//         "values": arr
-//     },
-//     "mark": "bar",
-//     "encoding": {
-//         "x": {
-//             "field": "style",
-//             "axis": { "labelAngle": 45 },
-//             "type": "nominal",
-//             "title": "Style of Ramen",
-//             "sort": "-y"
-//         },
-//         "y": {
-//             "field": "TimeTaken",
-//             "type": "quantitative",
-//             "title": "Average Ramen Rating",
-//         },
-//     },
-// };
-// vegaEmbed('#styleAvgStarsVis', styleAvgStarsVisSpec, { actions: false });
+
+    // Vis Spec: Handicap Vacancy
+    densityHandicap = {
+        "$schema": "https://vega.github.io/schema/vega-lite/v4.0.0-beta.8.json",
+        "description": "Handicap Parking Lot Vacancy",
+        "width": 500,
+        "data": {
+            "values": flattenedDensity
+        },
+        "mark": "bar",
+        "encoding": {
+            "x": {
+                "field": "TimeTaken",
+                "axis": { "labelAngle": 45 },
+                "type": "nominal",
+                "title": "Time",
+            },
+            "y": {
+                "field": "HANDICAP",
+                "type": "quantitative",
+                "title": "Proportion of Handicap Stalls Vacant",
+            },
+        },
+    };
+    vegaEmbed('#densityHandicapVis', densityHandicap, { actions: false });
+}
