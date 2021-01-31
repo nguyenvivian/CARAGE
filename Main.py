@@ -1,16 +1,9 @@
 import ExtractText
 import ParseExtractedText
-
 import PopulateParkingLocations
-
-# PopulateParkingLocations.post_lot()
-# ExtractText.detect_text('/Users/viviannguyen/PycharmProjects/CARAGE/assets/stream-test/30-01-2021_16.01.21.jpg')
-# ExtractText.detect_text('/Users/viviannguyen/PycharmProjects/CARAGE/assets/stream-test/30-01-2021_16.01.32.jpg')
-# ExtractText.detect_text('/Users/viviannguyen/PycharmProjects/CARAGE/assets/stream-test/30-01-2021_16.01.42.jpg')
-# ParseExtractedText.calculate_density('Lot6A')
 import time
 from watchdog.observers import Observer
-from watchdog.events import FileSystemEventHandler, PatternMatchingEventHandler
+from watchdog.events import PatternMatchingEventHandler
 
 
 class Watcher:
@@ -22,13 +15,13 @@ class Watcher:
                                                          ignore_patterns=[".*"],
                                                          ignore_directories=True)
         self.event_handler.on_created = self.on_created
-        self.observer.schedule(self.event_handler, self.DIRECTORY_TO_WATCH, recursive=True)
+        self.observer.schedule(self.event_handler, self.DIRECTORY_TO_WATCH, recursive=False)
 
     @staticmethod
     def on_created(event):
         print("Received created event - %s." % event.src_path)
         ExtractText.detect_text(event.src_path)
-        print("Calculated Spots Filled")
+        print("Calculated Spots Vacant")
         ParseExtractedText.calculate_density('Lot6A')
         print("Calculated Lot Density")
 

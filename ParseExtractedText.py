@@ -1,10 +1,6 @@
 import re
-import string
-
 from firebase import firebase
-
 from EnvironmentConstants import FIREBASE_URL
-
 firebase = firebase.FirebaseApplication(FIREBASE_URL, None)
 
 def calculate_density(parkingLot):

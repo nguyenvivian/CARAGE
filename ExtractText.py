@@ -1,13 +1,10 @@
 import io
 import os
 import string
-
 from google.cloud import vision
 from firebase import firebase
 from datetime import datetime
-
 from EnvironmentConstants import FIREBASE_URL, GOOGLE_APPLICATION_CREDENTIALS
-
 os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = GOOGLE_APPLICATION_CREDENTIALS
 firebase = firebase.FirebaseApplication(FIREBASE_URL, None)
 
